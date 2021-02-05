@@ -7,10 +7,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-      os: [ubuntu-latest]
-      include:
-        - os: ubuntu-latest
-          rid: linux-x64
+        os: [ubuntu-latest]
+        include:
+          - os: ubuntu-latest
+            rid: linux-x64
     name: build and release
     steps:
       - name: checkout
