@@ -30,3 +30,24 @@ jobs:
         with:
           name: example-dotnet-release-${{ matrix.rid }}${{ matrix.file-ext }}
           path: bin/release/net5.0/${{ matrix.rid }}/publish/example-dotnet-release${{ matrix.file-ext }}
+  release:
+    needs: publish
+    steps:
+      - name: create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          release_name: release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      # - name: upload release asset
+      #   uses: actions/upload-release-asset@v1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./.zip
+      #     asset_name: my-artifact.zip
+      #     asset_content_type: application/zip
