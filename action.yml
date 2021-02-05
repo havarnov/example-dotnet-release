@@ -1,0 +1,28 @@
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        include:
+          - os: ubuntu-latest
+            rid: linux-x64
+    name: build and release
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0
+      - name: dotnet publish
+        run: dotnet publish -c release -r ${{ matrix.rid }} --self-contained true -p:PublishSingleFile=true -p:PublishTrimmed=true -p:PublishReadyToRun=true -p:IncludeNativeLibrariesForSelfExtract=true
+      - name: upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: example-dotnet-release-${{ matrix.rid }}
+          path: bin/release/net5.0/${{ matrix.rid }}/publish/example-dotnet-release
