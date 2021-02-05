@@ -32,6 +32,7 @@ jobs:
           path: bin/release/net5.0/${{ matrix.rid }}/publish/example-dotnet-release${{ matrix.file-ext }}
   release:
     needs: [publish]
+    runs-on: ubuntu-latest
     steps:
       - name: create release
         id: create_release
