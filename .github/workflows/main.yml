@@ -28,5 +28,5 @@ jobs:
       - name: upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: example-dotnet-release-${{ matrix.rid }}
+          name: ${{ matrix.rid }}/example-dotnet-release${{ matrix.file-ext }}
           path: bin/release/net5.0/${{ matrix.rid }}/publish/example-dotnet-release${{ matrix.file-ext }}
