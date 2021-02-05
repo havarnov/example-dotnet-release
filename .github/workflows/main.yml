@@ -30,9 +30,6 @@ jobs:
         with:
           name: example-dotnet-release-${{ matrix.rid }}${{ matrix.file-ext }}
           path: bin/release/net5.0/${{ matrix.rid }}/publish/example-dotnet-release${{ matrix.file-ext }}
-  release:
-    needs: publish
-    steps:
       - name: create release
         id: create_release
         uses: actions/create-release@v1
