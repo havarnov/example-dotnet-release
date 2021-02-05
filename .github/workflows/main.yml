@@ -3,7 +3,7 @@ on:
     branches:
       - master
 jobs:
-  build:
+  publish:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -13,9 +13,9 @@ jobs:
             rid: linux-x64
           - os: windows-latest
             rid: win-x64
+            file-ext: .exe
           - os: macos-latest
             rid: osx-x64
-    name: build and release
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -29,4 +29,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: example-dotnet-release-${{ matrix.rid }}
-          path: bin/release/net5.0/${{ matrix.rid }}/publish/example-dotnet-release
+          path: bin/release/net5.0/${{ matrix.rid }}/publish/example-dotnet-release${{ matrix.file-ext }}
